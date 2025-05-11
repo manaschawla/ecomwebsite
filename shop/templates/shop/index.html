@@ -29,12 +29,12 @@
         object-position: center; 
       }
       .card-text,.card-title {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  display: -webkit-box;
-  -webkit-line-clamp: 1; /* max 3 lines */
-  -webkit-box-orient: vertical;
-}
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 1; /* max 3 lines */
+        -webkit-box-orient: vertical;
+      }
 
       .col-md-3 {
         display: inline-block;
@@ -76,45 +76,65 @@
         -webkit-line-clamp: 3; /* max 3 lines */
         -webkit-box-orient: vertical;
       }
+      #cart-item-count
+      {margin-left: 5px;
+        margin-top: 3px;
+        color: white;
+      }
+      #about
+      {
+        color: rgb(247, 244, 240);
+        margin: 5px;
+      }
     </style>
   </head>
   <body>
     {% load static %}
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-      <a class="navbar-brand" href="#">My Awesome Cart</a>
+      <a class="navbar-brand" href="#">
+        My Awesome Cart
+      </a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
-
+    
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item active">
-            <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Link</a>
+            <a id = "about"class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <a id = "about"class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               Dropdown
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <a class="dropdown-item" href="#">Action</a>
-              <a class="dropdown-item" href="#">Another action</a>
+              <a class="dropdown-item" href="#">Notifications</a>
+              <a class="dropdown-item" href="#">Contact us</a>
               <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="#">Something else here</a>
+              <a class="dropdown-item" href="#">Advertise</a>
             </div>
           </li>
           <li class="nav-item">
-            <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+            <a id = "about" class="nav-link" href="#">
+             About Us
+            </a>
+          </li>
+          <li class="nav-item">
+            <a id = "about"class="nav-link" href="#">
+              <img src="{% static 'shop/download.png' %}" alt="Cart Icon" width="25" height="25">
+                <span id="cart-item-count">0</span> <!-- Cart count -->
+              </span>
+            </a>
           </li>
         </ul>
         <form class="form-inline my-2 my-lg-0">
-          <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+          <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" style="width: 300px;">
+
+          <button class="btn btn-outline-success my-2 my-sm-0" type="submit" style="margin-right: 50px; width: 100px; margin-left: 10px;">Search</button>
         </form>
       </div>
     </nav>
+
 
     <div class="container" xmlns:data="http://www.w3.org/1999/xhtml">
       <!-- Slideshow starts here -->
@@ -137,7 +157,7 @@
                 <div class="card-body">
                   <h5 class="card-title">{{product.0.product_name}}</h5>
                   <p class="card-text">{{product.0.desc}}</p>
-                  <a href="#" class="btn btn-primary">Add to Cart</a>
+                  <button id = "pr{{product.0.id}}" class="btn btn-primary cart">Add to Cart</button>
                 </div>
               </div>
             </div>
@@ -148,7 +168,7 @@
                 <div class="card-body">
                   <h5 class="card-title">{{i.product_name}}</h5>
                   <p class="card-text">{{i.desc}}</p>
-                  <a href="#" class="btn btn-primary">Add to Cart</a>
+                  <button id = "pr{{i.id}}" class="btn btn-primary cart">Add to Cart</button>
                 </div>
               </div>
             </div>
@@ -176,7 +196,42 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
     <script>
-      console.log('working');
+      // Initialize cart from localStorage or an empty object if not found
+      let cart = JSON.parse(localStorage.getItem('cart')) || {};
+    
+      // Function to update the cart count
+      function updateCartCount() {
+        let totalItems = 0;
+    
+        // Sum up all items in the cart
+        for (let item in cart) {
+          totalItems += cart[item];
+        }
+    
+        // Update the cart count in the navbar
+        document.getElementById('cart-item-count').innerText = totalItems;
+      }
+    
+      // Update cart count on page load
+      updateCartCount();
+    
+      // When an item is added to the cart
+      document.getElementById('add-to-cart').addEventListener('click', function() {
+        let itemId = 'item1'; // Example item ID, replace with dynamic data
+    
+        // If the item is already in the cart, increment its quantity
+        if (cart[itemId]) {
+          cart[itemId] += 1;
+        } else {
+          cart[itemId] = 1;
+        }
+    
+        // Store the updated cart in localStorage
+        localStorage.setItem('cart', JSON.stringify(cart));
+    
+        // Update the cart count after adding an item
+        updateCartCount();
+      });
     </script>
   </body>
 </html>
