@@ -11,43 +11,137 @@
     <title>{%block title%} {%endblock%}</title>
     <style>
 </style>
+{% block head %}{% endblock %}
+
 </head>
 <body>
-    {% load static %}
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <a class="navbar-brand" href="#">My Awesome Cart</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
+  {% load static %}
+  <nav id = "navb" class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="#">
+      My Awesome Cart
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
 
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
-        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Link</a>
-      </li>
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Dropdown
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="#">Action</a>
-          <a class="dropdown-item" href="#">Another action</a>
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#">Something else here</a>
-        </div>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-      </li>
-    </ul>
-    <form class="form-inline my-2 my-lg-0">
-      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-    </form>
-  </div>
+```
+<div class="collapse navbar-collapse" id="navbarSupportedContent">
+  <ul class="navbar-nav mr-auto">
+    <li class="nav-item active">
+      <a id = "about"class="nav-link" href="/shop">Home <span class="sr-only">(current)</span></a>
+    </li>
+    <li class="nav-item">
+      <a id = "about" class="nav-link" href="/shop/about">
+       About Us
+      </a>
+    </li>
+    <li class="nav-item dropdown">
+      <a id = "about"class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        More
+      </a>
+      <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+        <a class="dropdown-item" href="/shop/tracker">Tracker</a>
+        <a class="dropdown-item" href="/shop/contact">Contact us</a>
+        <div class="dropdown-divider"></div>
+        <a class="dropdown-item" href="#">Advertise</a>
+      </div>
+    </li>
+  </ul>
+  <form class="form-inline my-2 my-lg-0">
+    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" style="width: 300px;">
+
+    <button class="btn btn-outline-success my-2 my-sm-0" type="submit" style="margin-right: 50px; width: 100px; margin-left: 10px;">Search</button>
+    <button type="button" id = "popcart" class="btn btn-secondary mx-2" data-container="body" data-toggle="popover" data-placement="right" data-html="true" data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus.">Cart <img src="{% static 'shop/download.png' %}" alt="Cart Icon" width="25" height="25">
+      <span id="cart-item-count">0</span> <!-- Cart count -->
+    </span></button>
+  </form>
+</div>
 </nav>
 {% block body%} {%endblock%}
+<footer class="bg-light text-dark pt-4 pb-3 mt-5 border-top">
+  <div class="container">
+    <div class="row">
+
+      <!-- About -->
+      <div class="col-md-4 mb-3">
+        <h5 class="text-primary">My Awesome Cart</h5>
+        <p>Your one-stop shop for quality, affordability, and trusted service. We deliver happiness at your doorstep.</p>
+      </div>
+
+      <!-- Quick Links -->
+      <div class="col-md-4 mb-3">
+        <h5 class="text-primary">Quick Links</h5>
+        <ul class="list-unstyled">
+          <li><a href="/shop" class="text-dark">Home</a></li>
+          <li><a href="/shop/about" class="text-dark">About Us</a></li>
+          <li><a href="/shop/tracker" class="text-dark">Order Tracker</a></li>
+          <li><a href="/shop/contact" class="text-dark">Contact Us</a></li>
+        </ul>
+      </div>
+
+      <!-- Contact Info -->
+      <div class="col-md-4 mb-3">
+        <h5 class="text-primary">Contact Us</h5>
+        <p>Email: <a href="mailto:support@awesomecart.com" class="text-dark">support@awesomecart.com</a></p>
+        <p>Phone: +91-9876543210</p>
+        <p>Address: Yamunanagar, Haryana, India</p>
+      </div>
+    </div>
+
+    <hr>
+    <div class="text-center">
+      <p class="mb-0">&copy; 2025 <strong>My Awesome Cart</strong>. All Rights Reserved.</p>
+    </div>
+  </div>
+</footer>
+
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+<script>
+  console.log('working');
+
+  // Load cart from localStorage or initialize empty
+  if (localStorage.getItem('cart') == null) {
+    var cart = {};
+  } else {
+    cart = JSON.parse(localStorage.getItem('cart'));
+  }
+
+  // Function to update cart count display
+  function updateCartCount() {
+    let total = 0;
+    for (let item in cart) {
+      total += cart[item];
+    }
+    document.getElementById('cart-item-count').innerText = total;
+  }
+
+  // Initial update on page load
+  updateCartCount();
+
+  // Add to cart logic on button click
+  $('.cart').click(function () {
+    console.log('clicked');
+    var idstr = this.id.toString();
+
+    if (cart[idstr] != undefined) {
+      cart[idstr] += 1;
+    } else {
+      cart[idstr] = 1;
+    }
+
+    console.log(cart);
+    localStorage.setItem('cart', JSON.stringify(cart));
+
+    // Update cart count after adding item
+    updateCartCount();
+  });
+  $('#popcart').popover()
+
+  document.getElementById("popcart").setAttribute('data-content','<h5>Cart for your items in my shopping cart</h5>');
+</script>
+
+
 </body>

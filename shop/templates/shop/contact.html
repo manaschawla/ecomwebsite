@@ -67,7 +67,7 @@
     <div class="col-md-6 mb-4">
       <div class="contact-form">
         <h4 class="mb-4">Send us a message</h4>
-        <form method="post" action="/shop/contact">
+        <form method="post" action="/shop/contact/" id = "myForm">
           {% csrf_token %}
           <div class="form-group">
             <label for="name">Full Name</label>
@@ -87,6 +87,7 @@
           </div>
           <button type="submit" class="btn btn-primary btn-block">Send Message</button>
         </form>
+</script>
       </div>
     </div>
 
