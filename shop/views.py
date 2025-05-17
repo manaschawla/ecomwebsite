@@ -37,24 +37,26 @@ def contact(request):
     return render(request, 'shop/contact.html')
 
 def tracker(request):
-    if request.method == "POST":
-        OrderId = request.POST.get('orderId', '')
+    if request.method=="POST":
+        orderId = request.POST.get('orderId', '')
         email = request.POST.get('email', '')
         try:
-            order = Order.objects.filter(order_id = OrderId, email = email )
-            if len(order)> 0:
-                update = OrderUpdate.objects.filter(order_id = OrderId)
+            order = Order.objects.filter(order_id=orderId, email=email)
+            if len(order)>0:
+                update = OrderUpdate.objects.filter(order_id=orderId)
                 updates = []
                 for item in update:
                     updates.append({'text': item.update_desc, 'time': item.timestamp})
-                    responses = json.dumps(updates, default=str)
-                    return HttpResponse(responses)
+                    response = json.dumps(updates, default=str)
+                return HttpResponse(response)
             else:
-                pass
-        except:
-            raise KeyError("nothing found")
-            
+                return HttpResponse('{}')
+        except Exception as e:
+            return HttpResponse('{}')
+
     return render(request, 'shop/tracker.html')
+
+
 
 def search(request):
     return render(request, 'shop/search.html')
