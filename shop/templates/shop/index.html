@@ -46,12 +46,25 @@
   .carousel-indicators .active {
     background-color: blue;
   }
-  body .carousel-indicator li {
-    background-color: blue;
+
+  .carousel-indicators li {
+
+    background-color: #95c6f3;
   }
-  body .carousel-indicators {
-    bottom: 0;
-  }
+.carousel-indicators {
+    position: absolute;
+    right: 0;
+    bottom: -16px;
+    left: 0;
+    z-index: 15;
+;
+display: flex;
+    justify-content: center;
+    padding-left: 0;
+    margin-right: 15%;
+    margin-left: 15%;
+    list-style: none;
+}
   body .carousel-control-prev-icon,
   body .carousel-control-next-icon {
     background-color: blue;
@@ -84,7 +97,7 @@
     margin-top: 3px;
     color: white;
   }
-  #about
+  #about,#blog
   {
     color: rgb(247, 244, 240);
     margin: 5px;
@@ -135,6 +148,11 @@
         <a id = "about" class="nav-link" href="/shop/about">
          About Us
         </a>
+        <li class="nav-item">
+      <a id = "blog" class="nav-link" href="/blog">
+       Blog
+      </a>
+    </li>
       </li>
       <li class="nav-item dropdown">
         <a id = "about"class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -165,7 +183,7 @@
   {% for product, range, nSlides in allprods %}
   <h4 class="my-4">Flash Sale On {{product.0.category}} - Recommended Items</h4>
   <div class = "row">
-  <div id="#demo{{forloop.counter}}" class="col carousel slide my-3" data-ride="carousel">
+  <div id="demo{{forloop.counter}}" class="col carousel slide my-3" data-ride="carousel">
     <ul class="carousel-indicators">
       <li data-target="#demo{{forloop.counter}}" data-slide-to="0" class="active"></li>
 
@@ -173,6 +191,9 @@
       <li data-target="#demo{{forloop.parentloop.counter}}" data-slide-to="{{i}}"></li>
       {% endfor %}
     </ul>
+
+
+
 
     <div class="container carousel-inner no-padding">
       <div class="carousel-item active">
@@ -203,7 +224,8 @@
           </div>
         </div>
         {% if forloop.counter|divisibleby:4 and forloop.counter > 0 and not forloop.last %}
-      </div><div class="carousel-item">
+      </div>
+      <div class="carousel-item">
         {% endif %}
         {% endfor %}
       </div>
@@ -214,23 +236,22 @@
   <a class="carousel-control-prev" href="#demo{{forloop.counter}}" data-slide="prev">
     <span class="carousel-control-prev-icon"></span>
   </a>
-
-</script>
-
-  </body>
-</html>
   <a class="carousel-control-next" href="#demo{{forloop.counter}}" data-slide="next">
     <span class="carousel-control-next-icon"></span>
   </a>
   </div>
   {% endfor %}
 </div>
-
+  </body>
+</html>
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+
 <script>
  
   console.log('working');
