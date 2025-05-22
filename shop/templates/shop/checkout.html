@@ -70,16 +70,35 @@ if ($.isEmptyObject(cart)) {
     $('#items').append(mystr);
 }
 else{
+    let total = 0;
+    for (item in cart) {
+
+    let name = cart[item][1];
+    let qty = cart[item][0];
+    let price = cart[item][2];
+    let totalpr = cart[item][2] * cart[item][0];
+    total += totalpr;
+    }
+
 for (item in cart) {
 
     let name = cart[item][1];
     let qty = cart[item][0];
-    mystr = `        <li class="list-group-item d-flex justify-content-between align-items-center">
-                   ${name}
-                    <span class="badge badge-primary badge-pill">${qty}</span>
-                </li>`
+    let price = cart[item][2];
+    let totalpr = cart[item][2] * cart[item][0];
+
+    mystr = `<li class="list-group-item d-flex justify-content-between align-items-center">
+  <span>
+    ${name}
+    <span class="badge badge-primary badge-pill ms-2">$${totalpr} </span>
+  </span>
+  <span class="badge badge-primary badge-pill">${qty}</span>
+</li>
+`
     $('#items').append(mystr);
 }
+mystr = `<br><h3>Total- $${total}</h3>`
+$('#items').append(mystr);
 }
 $('#itemsJson').val(JSON.stringify(cart));
 {% if thank %}
